@@ -8,6 +8,11 @@
       margin-bottom: 6px;
       color: #63656E;
     }
+
+    // 此处不需要显示control
+    .bk-input--number-control {
+      display: none;
+    }
   }
 
   .bk-pop-confirm-footer {

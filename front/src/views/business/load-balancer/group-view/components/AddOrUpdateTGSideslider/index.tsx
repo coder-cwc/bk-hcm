@@ -103,11 +103,12 @@ export default defineComponent({
         weight,
       })),
     });
-    // todo: 批量修改端口/权重等接口
-    // 处理参数 - 批量修改端口
-    // const resolveFormDataForBatchUpdatePort = () => ({});
-    // 处理参数 - 批量修改权重
-    // const resolveFormDataForBatchUpdateWeight = () => ({});
+    // 处理参数 - 批量修改端口/权重
+    const resolveFormDataForBatchUpdate = (type: 'port' | 'weight') => ({
+      // 此处formData.rs_list不为空
+      target_ids: formData.rs_list.map(({ id }) => id),
+      [`new_${type}`]: formData.rs_list[0][type],
+    });
 
     // submit - [新增/编辑目标组] 或 [批量添加rs] 或 [批量修改端口] 或 [批量修改权重]
     const handleAddOrUpdateTargetGroupSubmit = async () => {
@@ -127,11 +128,11 @@ export default defineComponent({
           message = 'RS添加成功';
           break;
         case 'port':
-          // promise = businessStore.batchUpdateRsPort(formData.id, resolveFormDataForBatchUpdatePort());
+          promise = businessStore.batchUpdateRsPort(formData.id, resolveFormDataForBatchUpdate('port'));
           message = '批量修改端口成功';
           break;
         case 'weight':
-          // promise = businessStore.batchUpdateRsWeight(formData.id, resolveFormDataForBatchUpdateWeight());
+          promise = businessStore.batchUpdateRsWeight(formData.id, resolveFormDataForBatchUpdate('weight'));
           message = '批量修改权重成功';
           break;
       }

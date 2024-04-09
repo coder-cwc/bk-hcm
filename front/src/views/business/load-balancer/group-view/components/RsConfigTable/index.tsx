@@ -90,6 +90,8 @@ export default defineComponent({
               <span>端口</span>
               <BatchUpdatePopConfirm
                 title='端口'
+                min={1}
+                max={65535}
                 onUpdateValue={(v) => handleBatchUpdate(v, 'port')}
                 disabled={!props.noDisabled && !isInitialState.value && !isBatchUpdatePort.value && !isAddRs.value}
               />
@@ -104,7 +106,7 @@ export default defineComponent({
             <Input
               modelValue={cell}
               onUpdate:modelValue={handleUpdate(data.id, 'port')}
-              disabled={!props.noDisabled && !(isAdd.value || isBatchUpdatePort.value || (isAddRs.value && data.isNew))}
+              disabled={!props.noDisabled && !(isAdd.value || (isAddRs.value && data.isNew))}
             />
           );
         },
@@ -117,6 +119,8 @@ export default defineComponent({
               <span>权重</span>
               <BatchUpdatePopConfirm
                 title='权重'
+                min={0}
+                max={100}
                 onUpdateValue={(v) => handleBatchUpdate(v, 'weight')}
                 disabled={!props.noDisabled && !isInitialState.value && !isBatchUpdateWeight.value && !isAddRs.value}
               />
@@ -131,9 +135,7 @@ export default defineComponent({
             <Input
               modelValue={cell}
               onUpdate:modelValue={handleUpdate(data.id, 'weight')}
-              disabled={
-                !props.noDisabled && !(isAdd.value || isBatchUpdateWeight.value || (isAddRs.value && data.isNew))
-              }
+              disabled={!props.noDisabled && !(isAdd.value || (isAddRs.value && data.isNew))}
             />
           );
         },

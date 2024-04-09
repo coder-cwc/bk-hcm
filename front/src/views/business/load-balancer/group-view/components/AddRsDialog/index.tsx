@@ -34,7 +34,7 @@ export default defineComponent({
       loadBalancerStore.setSelectedRsList(
         rsSelections.value.map((item) => ({
           ...item,
-          port: 0,
+          port: 1,
           weight: 0,
           isNew: true,
         })),
