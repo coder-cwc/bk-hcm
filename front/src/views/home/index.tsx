@@ -2,10 +2,14 @@ import { defineComponent, computed, watch, ref, nextTick, onMounted } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router';
 
 import { Menu, Navigation, Dropdown, Button } from 'bkui-vue';
+import NoticeComponent from '@blueking/notice-component';
+import '@blueking/notice-component/dist/style.css';
+import ChangeLog from './change-log/index.vue';
 import Breadcrumb from './breadcrumb';
 import BusinessSelector from './business-selector';
 import NoPermission from '@/views/resource/NoPermission';
 import AccountList from '../resource/resource-manage/account/accountList';
+import GlobalPermissionDialog from '@/components/global-permission-dialog';
 
 import cookie from 'cookie';
 import { useI18n } from 'vue-i18n';
@@ -24,7 +28,6 @@ import { classes } from '@/common/util';
 import { headRouteConfig } from '@/router/header-config';
 import logo from '@/assets/image/logo.png';
 import './index.scss';
-import GlobalPermissionDialog from '@/components/global-permission-dialog';
 
 const { ENABLE_CLOUD_SELECTION, ENABLE_ACCOUNT_BILL } = window.PROJECT_CONFIG;
 // import { CogShape } from 'bkui-vue/lib/icon';
@@ -32,7 +35,7 @@ const { ENABLE_CLOUD_SELECTION, ENABLE_ACCOUNT_BILL } = window.PROJECT_CONFIG;
 // import AddProjectDialog from '@/components/AddProjectDialog';
 
 const { DropdownMenu, DropdownItem } = Dropdown;
-const { VERSION } = window.PROJECT_CONFIG;
+const { VERSION, BK_HCM_AJAX_URL_PREFIX } = window.PROJECT_CONFIG;
 
 export default defineComponent({
   name: 'Home',
@@ -145,7 +148,9 @@ export default defineComponent({
 
     return () => (
       <main class='flex-column full-page home-page'>
-        {/* <Header></Header> */}
+        <NoticeComponent
+          apiUrl={`${BK_HCM_AJAX_URL_PREFIX}/api/v1/web/notice/get_current_announcements?language=${language.value}`}
+        />
         <div class='flex-1'>
           {
             <Navigation
@@ -225,6 +230,7 @@ export default defineComponent({
                         }}
                       </Dropdown>
                     </aside>
+                    <ChangeLog />
                     <aside class='header-user'>
                       <Dropdown>
                         {{
