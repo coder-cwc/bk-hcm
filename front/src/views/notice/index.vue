@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { provide, ref } from 'vue';
 import NoticeComponent from '@blueking/notice-component';
+import '@blueking/notice-component/dist/style.css';
 
 const { BK_HCM_AJAX_URL_PREFIX } = window.PROJECT_CONFIG;
 
